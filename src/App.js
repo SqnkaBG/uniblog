@@ -4,6 +4,7 @@ import RegisterPage from "./pages/register";
 import NavigationBar from "./components/navbar";
 import MyProfile from "./pages/my-profile";
 import Footer from "./components/footer";
+import HomePage from "./pages/home";
 
 function App() {
   const isLoggedIn = false;
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/my-profile" element={<MyProfile />} />
+        <Route path="/home" element={<HomePage />} />
         <Route
           path="/"
           element={isLoggedIn ? <RegisterPage /> : <Navigate to="/login" />}

@@ -15,7 +15,7 @@ function NavigationBar() {
       <div style={{ fontSize: "24px", fontWeight: "bold" }}>UniBlog</div>
 
       <div style={{ display: "flex", gap: "20px" }}>
-        <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+        <Link to="/home" style={{ color: "white", textDecoration: "none" }}>
           Home
         </Link>
         <Link to="/login" style={{ color: "white", textDecoration: "none" }}>

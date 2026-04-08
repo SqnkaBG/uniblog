@@ -1,6 +1,11 @@
 const LoginPage = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    //submit form so user can log in
+  };
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <label>email</label>
       <input></input>
       <label>password</label>
