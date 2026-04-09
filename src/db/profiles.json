@@ -1,0 +1,25 @@
+{
+  "register": [
+    {
+      "email": "ala@ala.com",
+      "password": "(TeJ@qDh8<5q{8|&a",
+      "id": "Dbuyx-Na5gg"
+    },
+    {
+      "email": "as@as.com",
+      "password": "(TeJ@qDh8<5q{8|&a",
+      "id": "K2hCutRKA8g"
+    },
+    {
+      "email": "ala@ala.com",
+      "password": "(TeJ@qDh8<5q{8|&",
+      "id": "XdM6KNW-xIU"
+    },
+    {
+      "email": "sdasdas@adas.cm",
+      "password": "a}GQAqS1f2}`'[P",
+      "id": "VbZC0lfQJsM"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
