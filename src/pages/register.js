@@ -2,8 +2,6 @@ import "./register.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-//starts json server - json-server --watch src/db/profiles.json --port 3002
-
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, SetPassword] = useState("");

@@ -1,6 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { LoginContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const { setIsLoggedIn } = useContext(LoginContext);
+  const navigate = useNavigate();
+
+  const [error, serError] = useState(false);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,22 +21,17 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    let loginSuccessful = false;
-
     if (email.trim() !== "" && password.trim() !== "") {
       const validUser = users.find(
         (element) => email === element.email && password === element.password,
       );
 
       if (validUser) {
-        loginSuccessful = true;
+        setIsLoggedIn(true);
+        navigate("/my-profile");
+      } else {
+        serError(true);
       }
-    }
-
-    if (loginSuccessful) {
-      alert("Login successful");
-    } else {
-      alert("Wrong email or password");
     }
   };
   return (
@@ -41,6 +43,9 @@ const LoginPage = () => {
         onChange={(e) => setPassword(e.target.value)}
         type="password"
       ></input>
+      <p style={{ color: "red", marginTop: "-20px", marginBottom: "10px" }}>
+        {error ? "Wrong email or password" : ""}
+      </p>
       <button>OK</button>
     </form>
   );

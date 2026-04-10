@@ -1,6 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { LoginContext } from "../App";
+import { useContext } from "react";
 
 function NavigationBar() {
+  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    navigate("/sample-home");
+  };
+
   return (
     <nav
       style={{
@@ -13,23 +23,44 @@ function NavigationBar() {
       }}
     >
       <div style={{ fontSize: "24px", fontWeight: "bold" }}>UniBlog</div>
-
       <div style={{ display: "flex", gap: "20px" }}>
-        <Link to="/home" style={{ color: "white", textDecoration: "none" }}>
-          Home
-        </Link>
-        <Link to="/login" style={{ color: "white", textDecoration: "none" }}>
-          Login
-        </Link>
-        <Link to="/register" style={{ color: "white", textDecoration: "none" }}>
-          Register
-        </Link>
-        <Link
-          to="/my-profile"
-          style={{ color: "white", textDecoration: "none" }}
-        >
-          My profile
-        </Link>
+        {!isLoggedIn ? (
+          <>
+            <Link
+              to="/sample-home"
+              style={{ color: "white", textDecoration: "none" }}
+            >
+              Home
+            </Link>
+            <Link
+              to="/login"
+              style={{ color: "white", textDecoration: "none" }}
+            >
+              Login
+            </Link>
+            <Link
+              to="/register"
+              style={{ color: "white", textDecoration: "none" }}
+            >
+              Register
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link to="/home" style={{ color: "white", textDecoration: "none" }}>
+              Home
+            </Link>
+            <Link
+              to="/my-profile"
+              style={{ color: "white", textDecoration: "none" }}
+            >
+              My profile
+            </Link>
+            <span onClick={handleLogout} style={{ cursor: "pointer" }}>
+              Log out
+            </span>
+          </>
+        )}
       </div>
     </nav>
   );
