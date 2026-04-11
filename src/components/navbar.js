@@ -8,7 +8,7 @@ function NavigationBar() {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    navigate("/sample-home");
+    navigate("/");
   };
 
   return (
@@ -26,10 +26,7 @@ function NavigationBar() {
       <div style={{ display: "flex", gap: "20px" }}>
         {!isLoggedIn ? (
           <>
-            <Link
-              to="/sample-home"
-              style={{ color: "white", textDecoration: "none" }}
-            >
+            <Link to="/home" style={{ color: "white", textDecoration: "none" }}>
               Home
             </Link>
             <Link
