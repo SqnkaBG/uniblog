@@ -1,13 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { LoginContext } from "../App";
 import "./home.css";
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
+  const { isLoggedIn } = useContext(LoginContext);
 
   useEffect(() => {
-    fetch("http://localhost:3002/posts")
-      .then((res) => res.json())
-      .then((data) => setPosts(data));
+    try {
+      fetch("http://localhost:3002/posts")
+        .then((res) => res.json())
+        .then((data) => setPosts(data));
+    } catch (error) {
+      alert("Something went wrong, please try again later.");
+    }
   }, []);
 
   return posts.length < 1 ? (
@@ -53,9 +59,13 @@ const HomePage = () => {
           <h2>Latest posts</h2>
           <p>Updated whenever someone actually posts something</p>
         </div>
-        <button className="create-post-btn">
-          <i className="fas fa-pen-fancy"></i> Make a post
-        </button>
+        {isLoggedIn ? (
+          <button className="create-post-btn">
+            <i className="fas fa-pen-fancy"></i> Make a post
+          </button>
+        ) : (
+          <></>
+        )}
       </div>
 
       <div className="posts-feed">

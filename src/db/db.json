@@ -6,24 +6,20 @@
       "id": "Dbuyx-Na5gg"
     },
     {
-      "email": "as@as.com",
-      "password": "(TeJ@qDh8<5q{8|&a",
-      "id": "K2hCutRKA8g"
-    },
+      "email": "petertate@laino.com",
+      "password": "Uxd3F+@W~/Jj#/P",
+      "id": "JdBphyois8s"
+    }
+  ],
+  "profile": [
     {
-      "email": "ala@ala.com",
-      "password": "(TeJ@qDh8<5q{8|&",
-      "id": "XdM6KNW-xIU"
-    },
-    {
-      "email": "sdasdas@adas.cm",
-      "password": "a}GQAqS1f2}`'[P",
-      "id": "VbZC0lfQJsM"
-    },
-    {
-      "email": "258knr@unibit.bg",
-      "password": "P@rola123456",
-      "id": "d98dpUW"
+      "id": "Dbuyx-Na5gg",
+      "name": "asdasd",
+      "username": "asdasd",
+      "bio": "asdasdas",
+      "posts": 0,
+      "followers": 0,
+      "following": 0
     }
   ],
   "posts": [
@@ -255,5 +251,6 @@
       "likes": 1456,
       "comments": 345
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

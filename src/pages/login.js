@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const { setIsLoggedIn } = useContext(LoginContext);
+  const { setUserId } = useContext(LoginContext);
+
   const navigate = useNavigate();
 
   const [error, serError] = useState(false);
@@ -14,9 +16,13 @@ const LoginPage = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3002/register")
-      .then((res) => res.json()) //convert from json to array
-      .then((data) => setUsers(data));
+    try {
+      fetch("http://localhost:3002/register")
+        .then((res) => res.json()) //convert from json to array
+        .then((data) => setUsers(data));
+    } catch (error) {
+      alert("Something went wrong, please try again later.");
+    }
   }, []); //empty array at the end so it runs only once when it loads
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,6 +34,7 @@ const LoginPage = () => {
 
       if (validUser) {
         setIsLoggedIn(true);
+        setUserId(validUser.id);
         navigate("/my-profile");
       } else {
         serError(true);

@@ -53,14 +53,17 @@ const RegisterPage = () => {
   };
 
   const submitData = async (data) => {
-    const response = await fetch("http://localhost:3002/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    await response.json();
-    if (response.ok) {
-      setformIsVisible(false);
+    try {
+      const response = await fetch("http://localhost:3002/register", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+      await response.json();
+      if (response.ok) {
+        setformIsVisible(false);
+      }
+    } catch (error) {
+      alert("Something went wrong, please try again later.");
     }
   };
 
