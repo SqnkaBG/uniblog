@@ -32,24 +32,35 @@ const AddPost = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="add-post-form">
-      <label>Create Post</label>
+    <div class="add-post-container">
+      <form class="add-post-form">
+        <h2 class="form-title">Create Post</h2>
 
-      <div
-        ref={editorRef}
-        className="facebook-editor"
-        contentEditable="true"
-        onInput={handleInput}
-        suppressContentEditableWarning={true}
-        data-placeholder="What's on your mind?"
-      ></div>
+        <div
+          class="editor-title"
+          contenteditable="true"
+          data-placeholder="Title"
+        ></div>
 
-      <div className="form-actions">
-        <button type="submit" className="submit-btn">
-          Post
-        </button>
-      </div>
-    </form>
+        <div
+          class="editor-tags"
+          contenteditable="true"
+          data-placeholder="Tags (e.g., #technology, #coding)"
+        ></div>
+
+        <div
+          class="editor-content"
+          contenteditable="true"
+          data-placeholder="What's on your mind?"
+        ></div>
+
+        <div class="form-actions">
+          <button type="submit" class="submit-btn">
+            <i class="fas fa-paper-plane"></i> Post
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

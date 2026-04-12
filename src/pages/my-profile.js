@@ -5,11 +5,14 @@ import { LoginContext } from "../App";
 function AccountPage() {
   const { userId } = useContext(LoginContext);
   const [menuOpen, setMenuOpen] = useState(false);
+
   const [profile, setProfile] = useState({});
   const [error, setError] = useState(false);
+
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
+  const [avatar, setAvatar] = useState("");
 
   const handleOpenMenu = () => {
     setName(profile.name || "");
@@ -28,21 +31,28 @@ function AccountPage() {
     if (!userId) return;
 
     try {
-      const response = await fetch(`http://localhost:3002/profile/${userId}`);
+      const response = await fetch("http://localhost:3002/profile");
 
       if (response.ok) {
         const data = await response.json();
-        setProfile(data);
 
-        if (Object.keys(data).length <= 1) {
-          setMenuOpen(true);
-        }
-      } else if (response.status === 404) {
+        const userProfile = data[userId];
+        setProfile(
+          userProfile || {
+            id: userId,
+            name: "",
+            username: "",
+            avatar: "👤",
+            bio: "",
+            posts: 0,
+            followers: 0,
+            following: 0,
+          },
+        );
+      } else {
         setMenuOpen(true);
-        setProfile({ id: userId });
       }
     } catch (error) {
-      console.error("Error fetching profile:", error);
       alert("Something went wrong, please try again later.");
     }
   };
@@ -52,52 +62,63 @@ function AccountPage() {
   }, [userId]);
 
   const submitData = async (data) => {
-    if (!data.name.trim() || !data.username.trim() || !data.bio.trim()) {
+    const userData = data[userId];
+    if (
+      !userData.name.trim() ||
+      !userData.username.trim() ||
+      !userData.bio.trim()
+    ) {
       setError(true);
       return;
     }
 
     try {
-      let response = await fetch(`http://localhost:3002/profile/${userId}`, {
-        method: "PUT",
+      let response = await fetch("http://localhost:3002/profile", {
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
-      if (response.status === 404) {
-        response = await fetch(`http://localhost:3002/profile`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
-      }
-
       if (response.ok) {
         const updatedProfile = await response.json();
-        setProfile(updatedProfile);
+
+        if (updatedProfile[userId]) setProfile(updatedProfile[userId]);
+        else {
+          setProfile({ id: userId });
+        }
         setMenuOpen(false);
         setError(false);
-        alert("Profile saved successfully!");
       } else {
         alert("Failed to save profile. Please try again.");
       }
     } catch (error) {
-      alert("Something went wrong, please try again later. " + error);
+      alert("Something went wrong, please try again later.");
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const jsonData = {
-      id: userId,
-      name: name,
-      username: username,
-      bio: bio,
-      posts: profile.posts || 0,
-      followers: profile.followers || 0,
-      following: profile.following || 0,
+      [userId]: {
+        name: name,
+        username: username,
+        avatar: avatar,
+        bio: bio,
+        posts: profile.posts || 0,
+        followers: profile.followers || 0,
+        following: profile.following || 0,
+      },
     };
     submitData(jsonData);
+  };
+  const handleInput = (e) => {
+    const input = e.target.value;
+
+    // Keep only emojis, remove all other text
+    const emojisOnly = input.match(/\p{Emoji}/gu)?.join("") || "";
+
+    setAvatar(emojisOnly);
+    setError(false);
   };
 
   return (
@@ -106,7 +127,7 @@ function AccountPage() {
         <div className="card-cover"></div>
 
         <div className="avatar-wrapper">
-          <div className="avatar-circle">👤</div>
+          <div className="avatar-circle">{profile.avatar}</div>
         </div>
 
         <div className="profile-info">
@@ -170,6 +191,17 @@ function AccountPage() {
               name="username"
               className="modal-input"
               placeholder="johndoe"
+            />
+            <label className="modal-label">Avatar</label>
+            <input
+              onChange={(e) => {
+                handleInput(e);
+                setError(false);
+              }}
+              value={avatar}
+              type="text"
+              name="avatar"
+              className="modal-input"
             />
 
             <label className="modal-label">Bio</label>

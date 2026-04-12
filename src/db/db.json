@@ -14,37 +14,40 @@
       "email": "258knr@unibit.bg",
       "password": "P@rola123456",
       "id": "cGyh5-y"
+    },
+    {
+      "email": "ivana.Valcheva@meow.com",
+      "password": "P@rol@12345",
+      "id": "OspH494EELg"
     }
   ],
-  "profile": [
-    {
-      "id": "Dbuyx-Na5gg",
-      "name": "asdasd",
-      "username": "asdasd",
-      "bio": "asdasdas",
+  "profile": {
+    "cGyh5-y": {
+      "name": "asfaf",
+      "username": "ffdgdg",
+      "bio": "fdhdasdfasf",
       "posts": 0,
       "followers": 0,
       "following": 0
     },
-    {
-      "id": "cGyh5-y",
-      "name": "Valio",
-      "username": "sqnkabg",
-      "bio": "Ivana lover",
+    "OspH494EELg": {
+      "name": "aaaaaa",
+      "username": "aaaaaaaaa",
+      "bio": "aaaaaaa",
       "posts": 0,
       "followers": 0,
       "following": 0
     },
-    {
-      "id": "JdBphyois8s",
-      "name": "Peter Tate",
-      "username": "gay",
-      "bio": "adgsdg",
+    "JdBphyois8s": {
+      "name": "saasf",
+      "username": "asfasf",
+      "avatar": "🧍",
+      "bio": "asfasf",
       "posts": 0,
       "followers": 0,
       "following": 0
     }
-  ],
+  },
   "posts": [
     {
       "id": "p1",
@@ -350,5 +353,6 @@
       "likes": 1456,
       "comments": 345
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
