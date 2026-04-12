@@ -3,11 +3,13 @@ import { LoginContext } from "../App";
 import { useContext } from "react";
 
 function NavigationBar() {
-  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+  const { isLoggedIn, setIsLoggedIn, userId, setUserId } =
+    useContext(LoginContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    setUserId("");
     navigate("/");
   };
 
@@ -24,7 +26,7 @@ function NavigationBar() {
     >
       <div style={{ fontSize: "24px", fontWeight: "bold" }}>UniBlog</div>
       <div style={{ display: "flex", gap: "20px" }}>
-        {!isLoggedIn ? (
+        {!isLoggedIn && userId.length < 1 ? (
           <>
             <Link to="/home" style={{ color: "white", textDecoration: "none" }}>
               Home
