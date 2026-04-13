@@ -9,15 +9,14 @@ function AccountPage() {
   const [profile, setProfile] = useState({});
   const [error, setError] = useState(false);
 
-  const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
   const [avatar, setAvatar] = useState("");
 
   const handleOpenMenu = () => {
-    setName(profile.name || "");
     setUsername(profile.username || "");
     setBio(profile.bio || "");
+    setAvatar(profile.avatar || "👤");
     setMenuOpen(true);
     setError(false);
   };
@@ -36,11 +35,11 @@ function AccountPage() {
       if (response.ok) {
         const data = await response.json();
 
-        const userProfile = data[userId];
+        const userProfile = data.find((element) => userId === element.id);
+
         setProfile(
           userProfile || {
             id: userId,
-            name: "",
             username: "",
             avatar: "👤",
             bio: "",
@@ -61,18 +60,13 @@ function AccountPage() {
     }
   }, [userId]);
   const submitData = async (data) => {
-    const userData = data[userId];
-    if (
-      !userData.name.trim() ||
-      !userData.username.trim() ||
-      !userData.bio.trim()
-    ) {
+    if (!data.username.trim() || !data.bio.trim() || !data.avatar.trim()) {
       setError(true);
       return;
     }
 
     try {
-      let response = await fetch("http://localhost:3002/profile", {
+      let response = await fetch(`http://localhost:3002/users/${userId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -81,7 +75,7 @@ function AccountPage() {
       if (response.ok) {
         const updatedProfile = await response.json();
 
-        if (updatedProfile[userId]) setProfile(updatedProfile[userId]);
+        if (updatedProfile) setProfile(updatedProfile);
         else {
           setProfile({ id: userId });
         }
@@ -98,22 +92,16 @@ function AccountPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const jsonData = {
-      [userId]: {
-        name: name,
-        username: username,
-        avatar: avatar,
-        bio: bio,
-        posts: profile.posts || 0,
-        followers: profile.followers || 0,
-        following: profile.following || 0,
-      },
+      username: username,
+      avatar: avatar,
+      bio: bio,
+      posts: profile.posts || 0,
     };
     submitData(jsonData);
   };
   const handleInput = (e) => {
     const input = e.target.value;
 
-    // Keep only emojis, remove all other text
     const emojisOnly = input.match(/\p{Emoji}/gu)?.join("") || "";
 
     setAvatar(emojisOnly);
@@ -128,24 +116,17 @@ function AccountPage() {
         <div className="avatar-wrapper">
           <div className="avatar-circle">{profile.avatar}</div>
         </div>
-
         <div className="profile-info">
-          <h2 className="profile-name">{profile?.name || "No name set"}</h2>
-          <p className="profile-username">@{profile?.username || "username"}</p>
-          <p className="profile-bio">{profile?.bio || "No bio yet"}</p>
+          <p className="profile-name">@{profile?.username || "username"}</p>
+          <div className="stat-label">Posts</div>
+          <div className="profile-username">
+            {profile.posts === undefined ? 0 : profile.posts.length}
+          </div>
 
           <div className="stats-row">
+            <div className="stat-item"></div>
             <div className="stat-item">
-              <div className="stat-number">{profile?.posts || 0}</div>
-              <div className="stat-label">Posts</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-number">{profile?.followers || 0}</div>
-              <div className="stat-label">Followers</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-number">{profile?.following || 0}</div>
-              <div className="stat-label">Following</div>
+              <p className="profile-bio">{profile?.bio || "No bio yet"}</p>
             </div>
           </div>
 
@@ -165,19 +146,6 @@ function AccountPage() {
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="modal-title">Edit Profile</h2>
-
-            <label className="modal-label">Name</label>
-            <input
-              onChange={(e) => {
-                setName(e.target.value);
-                setError(false);
-              }}
-              value={name}
-              type="text"
-              name="name"
-              className="modal-input"
-              placeholder="John Doe"
-            />
 
             <label className="modal-label">Username</label>
             <input

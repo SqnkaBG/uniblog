@@ -40,6 +40,7 @@
 .profile-name {
   margin: 0 0 5px;
   font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .profile-username {
@@ -50,11 +51,12 @@
 .profile-bio {
   color: #555;
   margin-bottom: 20px;
+  margin: auto;
 }
 
 .stats-row {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   padding: 15px 0;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
