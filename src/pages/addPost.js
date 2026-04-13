@@ -1,62 +1,166 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import "./addPost.css";
+import { useNavigate } from "react-router-dom";
+import { LoginContext } from "../App";
 
-//took the Facebook logic for div that can be edited by a user
 const AddPost = () => {
-  const [text, setText] = useState("");
-  const editorRef = useRef(null);
+  const [title, setTitle] = useState("");
+  const [tag, setTag] = useState("");
+  const [content, setContent] = useState("");
+  const [hashtags, sethashtags] = useState([]);
+
+  const titleRef = useRef(null);
+  const tagsRef = useRef(null);
+  const contentRef = useRef(null);
+
+  const navigate = useNavigate();
+  const { userId } = useContext(LoginContext);
 
   useEffect(() => {
-    if (editorRef.current) {
-      if (text === "") {
-        editorRef.current.classList.add("empty");
+    if (titleRef.current) {
+      if (title === "") {
+        titleRef.current.classList.add("empty");
       } else {
-        editorRef.current.classList.remove("empty");
+        titleRef.current.classList.remove("empty");
       }
     }
-  }, [text]);
+  }, [title]);
 
-  const handleInput = (e) => {
-    setText(e.currentTarget.innerText);
+  useEffect(() => {
+    if (tagsRef.current) {
+      if (tag === "") {
+        tagsRef.current.classList.add("empty");
+      } else {
+        tagsRef.current.classList.remove("empty");
+      }
+    }
+  }, [tag]);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      if (content === "") {
+        contentRef.current.classList.add("empty");
+      } else {
+        contentRef.current.classList.remove("empty");
+      }
+    }
+  }, [content]);
+
+  const handleTitleInput = (e) => {
+    setTitle(e.currentTarget.innerText);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (text.trim() === "") return;
+  const handleTagsInput = (e) => {
+    if (
+      e.currentTarget.innerText[e.currentTarget.innerText.length - 1] === "#" &&
+      e.currentTarget.innerText.length > 1
+    ) {
+      const inputData = e.currentTarget.innerText
+        .split(/[^A-Za-z0-9]+/)
+        .filter(Boolean)
+        .map((el) => (el = `#${el}`));
 
-    console.log("Post content:", text);
-    setText("");
-    if (editorRef.current) {
-      editorRef.current.innerText = "";
+      sethashtags(inputData);
+      console.log(hashtags);
+      e.currentTarget.innerText = inputData.join(" ") + " ";
+      const range = document.createRange();
+      const sel = window.getSelection();
+      range.selectNodeContents(e.currentTarget);
+      range.collapse(false);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+  };
+
+  const handleContentInput = (e) => {
+    setContent(e.currentTarget.innerText);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (title.trim() === "") {
+      alert("Please add a title");
+      return;
+    }
+
+    if (content.trim() === "") {
+      alert("Please add content");
+      return;
+    }
+
+    const postData = {
+      userID: userId || "anonymous",
+      date: new Date().toISOString(),
+      title: title,
+      body: content,
+      tags: hashtags.length > 0 ? hashtags : [],
+      comments: [],
+    };
+
+    try {
+      const response = await fetch("http://localhost:3002/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postData),
+      });
+
+      if (response.ok) {
+        alert("Post created successfully!");
+        navigate("/home");
+      } else {
+        alert("Failed to create post");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Something went wrong");
     }
   };
 
   return (
-    <div class="add-post-container">
-      <form class="add-post-form">
-        <h2 class="form-title">Create Post</h2>
+    <div className="add-post-container">
+      <form className="add-post-form" onSubmit={handleSubmit}>
+        <h2 className="form-title">Create Post</h2>
 
         <div
-          class="editor-title"
-          contenteditable="true"
+          ref={titleRef}
+          className="editor-title"
+          contentEditable="true"
+          onInput={handleTitleInput}
+          suppressContentEditableWarning={true}
           data-placeholder="Title"
         ></div>
 
         <div
-          class="editor-tags"
-          contenteditable="true"
-          data-placeholder="Tags (e.g., #technology, #coding)"
+          ref={tagsRef}
+          className="editor-tags"
+          contentEditable="true"
+          onInput={handleTagsInput}
+          suppressContentEditableWarning={true}
+          data-placeholder="Enter the tag name and then press # to make it as valid hashtag"
         ></div>
 
         <div
-          class="editor-content"
-          contenteditable="true"
+          ref={contentRef}
+          className="editor-content"
+          contentEditable="true"
+          onInput={handleContentInput}
+          suppressContentEditableWarning={true}
           data-placeholder="What's on your mind?"
         ></div>
 
-        <div class="form-actions">
-          <button type="submit" class="submit-btn">
-            <i class="fas fa-paper-plane"></i> Post
+        <div className="form-actions">
+          <button
+            type="button"
+            className="cancel-btn"
+            onClick={() => navigate("/home")}
+          >
+            Cancel
+          </button>
+          <button type="submit" className="submit-btn">
+            <i className="fas fa-paper-plane"></i> Post
           </button>
         </div>
       </form>

@@ -1,11 +1,13 @@
 import { useEffect, useState, useContext } from "react";
 import { LoginContext } from "../App";
 import "./home.css";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { isLoggedIn } = useContext(LoginContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -35,7 +37,7 @@ const HomePage = () => {
       </div>
     );
   }
-
+  //No posts
   if (posts.length < 1) {
     return (
       <div className="home-container">
@@ -68,7 +70,12 @@ const HomePage = () => {
           <p>Updated whenever someone actually posts something</p>
         </div>
         {isLoggedIn ? (
-          <button className="create-post-btn">
+          <button
+            className="create-post-btn"
+            onClick={() => {
+              navigate("/addPost");
+            }}
+          >
             <i className="fas fa-pen-fancy"></i> Make a post
           </button>
         ) : (
@@ -80,15 +87,26 @@ const HomePage = () => {
         {posts.map((post) => (
           <div key={post.id} className="post-card">
             <div className="post-header">
-              <div className="avatar">{post.avatarEmoji}</div>
+              <div className="avatar">{`${post.avatarEmoji || "👤"}`}</div>
               <div className="post-author">
                 <h4>
-                  {post.author}{" "}
-                  <span className="post-badge">@{post.authorUsername}</span>
+                  {post.author}
+                  {"Nameless"}
+                  <span className="post-badge">
+                    @{post.authorUsername}
+                    {"nameless"}
+                  </span>
                 </h4>
                 <div className="post-meta">
                   <span>
-                    <i className="far fa-calendar-alt"></i> {post.date}
+                    <i className="far fa-calendar-alt"></i>{" "}
+                    {new Date(post.date).toLocaleDateString("en-BG", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                      hour: "numeric",
+                      minute: "2-digit",
+                    })}
                   </span>
                 </div>
               </div>
@@ -105,15 +123,8 @@ const HomePage = () => {
               </div>
             </div>
             <div className="post-stats">
-              <span className="like-btn">
-                <i className="far fa-heart"></i>
-                {post.likes} likes
-              </span>
               <span>
                 <i className="far fa-comment"></i> {post.comments} comments
-              </span>
-              <span>
-                <i className="far fa-bookmark"></i> save
               </span>
             </div>
           </div>
