@@ -9,6 +9,8 @@ function NavigationBar() {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userID");
     setUserId("");
     navigate("/");
   };

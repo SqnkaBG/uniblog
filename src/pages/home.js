@@ -4,55 +4,63 @@ import "./home.css";
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { isLoggedIn } = useContext(LoginContext);
 
   useEffect(() => {
-    try {
-      fetch("http://localhost:3002/posts")
-        .then((res) => res.json())
-        .then((data) => setPosts(data));
-    } catch (error) {
-      alert("Something went wrong, please try again later.");
-    }
+    const fetchPosts = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch("http://localhost:3002/posts");
+        const data = await response.json();
+        setPosts(data);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+        alert("Something went wrong, please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
   }, []);
 
-  return posts.length < 1 ? (
-    <div className="home-container">
-      <div className="welcome-card">
-        <div className="welcome-text">
-          <h2>What's new</h2>
-          <p>Mostly complaints about everything</p>
-        </div>
-        <button className="create-post-btn">
-          <i className="fas fa-pen-fancy"></i> Make a post
-        </button>
-      </div>
-      <div className="posts-feed">
-        <div className="empty-state">
-          <i className="fas fa-newspaper"></i>
-          <h3>No posts yet</h3>
-          <p>Be the first to share something!</p>
+  if (loading) {
+    return (
+      <div className="home-container">
+        <div className="loading-screen">
+          <div className="spinner"></div>
+          <p>Loading posts...</p>
         </div>
       </div>
-      <div className="modal-overlay">
-        <div className="modal-card">
-          <h3>
-            <i className="fas fa-feather-alt"></i> Create new post
-          </h3>
-          <input type="text" name="title" placeholder="Post title" />
-          <textarea
-            name="body"
-            rows="4"
-            placeholder="Place your post text here"
-          />
-          <div className="modal-actions">
-            <button className="cancel-btn">Cancel</button>
-            <button className="submit-btn">Publish post</button>
+    );
+  }
+
+  if (posts.length < 1) {
+    return (
+      <div className="home-container">
+        <div className="welcome-card">
+          <div className="welcome-text">
+            <h2>What's new</h2>
+            <p>Mostly complaints about everything</p>
+          </div>
+          <button className="create-post-btn">
+            <i className="fas fa-pen-fancy"></i> Make a post
+          </button>
+        </div>
+        <div className="posts-feed">
+          <div className="empty-state">
+            <i className="fas fa-newspaper"></i>
+            <h3>No posts yet</h3>
+            <p>Be the first to share something!</p>
           </div>
         </div>
       </div>
-    </div>
-  ) : (
+    );
+  }
+
+  // Show posts
+  return (
     <div className="home-container">
       <div className="welcome-card">
         <div className="welcome-text">

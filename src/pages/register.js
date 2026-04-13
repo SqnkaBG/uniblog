@@ -3,16 +3,25 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const RegisterPage = () => {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, SetPassword] = useState("");
   const [passwordRepeat, SetPasswordRepeat] = useState("");
 
+  const [validUsername, setvalidUsername] = useState(false);
   const [validEmail, setvalidEmail] = useState(false);
   const [validPass, setvalidPass] = useState(false);
   const [validPassRepeat, setvalidPassRepeat] = useState(false);
 
   const [formIsVisible, setformIsVisible] = useState(true);
 
+  const handleUsername = (e) => {
+    const value = e.target.value;
+    setUsername(value);
+    if (value.length >= 4 && value.length <= 10) {
+      setvalidUsername(true);
+    }
+  };
   const handleEmail = (e) => {
     const value = e.target.value;
     setEmail(value);
@@ -46,15 +55,22 @@ const RegisterPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault(); //prevent refresh
 
-    if (validEmail && validPass && validPassRepeat) {
-      const jsonData = { email: email, password: password };
+    if (validUsername && validEmail && validPass && validPassRepeat) {
+      const jsonData = {
+        email: email,
+        password: password,
+        username: username,
+        avatar: "👤",
+        bio: "",
+        posts: [],
+      };
       submitData(jsonData);
     }
   };
 
   const submitData = async (data) => {
     try {
-      const response = await fetch("http://localhost:3002/register", {
+      const response = await fetch("http://localhost:3002/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -72,6 +88,20 @@ const RegisterPage = () => {
     <div>
       {formIsVisible ? (
         <form onSubmit={handleSubmit}>
+          <label>usename</label>
+          <input onChange={handleUsername} value={username}></input>
+          {!validUsername &&
+            username && ( //if the username is invalid and something was typed in then it shows the invalid text
+              <p
+                style={{
+                  color: "red",
+                  marginTop: "-20px",
+                  marginBottom: "10px",
+                }}
+              >
+                Username should be more than 3 symbols and less than 11
+              </p>
+            )}
           <label>email</label>
           <input onChange={handleEmail} value={email}></input>
           {!validEmail &&

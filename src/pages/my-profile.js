@@ -31,7 +31,7 @@ function AccountPage() {
     if (!userId) return;
 
     try {
-      const response = await fetch("http://localhost:3002/profile");
+      const response = await fetch("http://localhost:3002/users");
 
       if (response.ok) {
         const data = await response.json();
@@ -44,9 +44,7 @@ function AccountPage() {
             username: "",
             avatar: "👤",
             bio: "",
-            posts: 0,
-            followers: 0,
-            following: 0,
+            posts: [],
           },
         );
       } else {
@@ -58,9 +56,10 @@ function AccountPage() {
   };
 
   useEffect(() => {
-    fetchProfile();
+    if (userId) {
+      fetchProfile();
+    }
   }, [userId]);
-
   const submitData = async (data) => {
     const userData = data[userId];
     if (
