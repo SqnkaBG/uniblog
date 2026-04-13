@@ -99,12 +99,13 @@ function AccountPage() {
     };
     submitData(jsonData);
   };
+
   const handleInput = (e) => {
     const input = e.target.value;
 
-    const emojisOnly = input.match(/\p{Emoji}/gu)?.join("") || "";
+    const firstChar = Array.from(input)[0] || "";
 
-    setAvatar(emojisOnly);
+    setAvatar(firstChar);
     setError(false);
   };
 
