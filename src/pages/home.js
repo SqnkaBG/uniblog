@@ -6,26 +6,49 @@ import { useNavigate } from "react-router-dom";
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { isLoggedIn } = useContext(LoginContext);
+  const [authors, setAuthors] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch("http://localhost:3002/posts");
-        const data = await response.json();
-        setPosts(data);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-        alert("Something went wrong, please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
+  const { isLoggedIn } = useContext(LoginContext);
 
-    fetchPosts();
+  useEffect(() => {
+    const loadData = async () => {
+      await fetchAuthors();
+      await fetchPosts();
+    };
+    loadData();
   }, []);
+
+  const fetchPosts = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("http://localhost:3002/posts");
+      const data = await response.json();
+      setPosts(data);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      alert("Something went wrong, please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchAuthors = async () => {
+    try {
+      const response = await fetch("http://localhost:3002/users");
+      if (response.ok) {
+        const data = await response.json();
+        setAuthors(data);
+      }
+    } catch (error) {
+      console.error("Error fetching authors:", error);
+      alert("Something went wrong, please try again later.");
+    }
+  };
+
+  const getAuthorById = (userId) => {
+    return authors.find((author) => author.id === userId);
+  };
 
   if (loading) {
     return (
@@ -37,7 +60,8 @@ const HomePage = () => {
       </div>
     );
   }
-  //No posts
+
+  // No posts
   if (posts.length < 1) {
     return (
       <div className="home-container">
@@ -46,9 +70,14 @@ const HomePage = () => {
             <h2>What's new</h2>
             <p>Mostly complaints about everything</p>
           </div>
-          <button className="create-post-btn">
-            <i className="fas fa-pen-fancy"></i> Make a post
-          </button>
+          {isLoggedIn && (
+            <button
+              className="create-post-btn"
+              onClick={() => navigate("/addPost")}
+            >
+              <i className="fas fa-pen-fancy"></i> Make a post
+            </button>
+          )}
         </div>
         <div className="posts-feed">
           <div className="empty-state">
@@ -69,66 +98,64 @@ const HomePage = () => {
           <h2>Latest posts</h2>
           <p>Updated whenever someone actually posts something</p>
         </div>
-        {isLoggedIn ? (
+        {isLoggedIn && (
           <button
             className="create-post-btn"
-            onClick={() => {
-              navigate("/addPost");
-            }}
+            onClick={() => navigate("/addPost")}
           >
             <i className="fas fa-pen-fancy"></i> Make a post
           </button>
-        ) : (
-          <></>
         )}
       </div>
 
       <div className="posts-feed">
-        {posts.map((post) => (
-          <div key={post.id} className="post-card">
-            <div className="post-header">
-              <div className="avatar">{`${post.avatarEmoji || "👤"}`}</div>
-              <div className="post-author">
-                <h4>
-                  {post.author}
-                  {"Nameless"}
-                  <span className="post-badge">
-                    @{post.authorUsername}
-                    {"nameless"}
-                  </span>
-                </h4>
-                <div className="post-meta">
-                  <span>
-                    <i className="far fa-calendar-alt"></i>{" "}
-                    {new Date(post.date).toLocaleDateString("en-BG", {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                      hour: "numeric",
-                      minute: "2-digit",
-                    })}
-                  </span>
+        {posts.map((post) => {
+          const author = getAuthorById(post.userID);
+          return (
+            <div key={post.id} className="post-card">
+              <div className="post-header">
+                <div className="avatar">{`${author.avatar}` || `${"👤"}`}</div>
+                <div className="post-author">
+                  <h4>
+                    {author.username || "Nameless"}
+                    <span className="post-badge">
+                      @{author.username || "nameless"}
+                    </span>
+                  </h4>
+                  <div className="post-meta">
+                    <span>
+                      <i className="far fa-calendar-alt"></i>{" "}
+                      {new Date(post.date).toLocaleDateString("en-BG", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                        hour: "numeric",
+                        minute: "2-digit",
+                      })}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="post-content">
-              <div className="post-title">{post.title}</div>
-              <div className="post-text">{post.body}</div>
-              <div className="post-tags">
-                {post.tags.map((tag, idx) => (
-                  <span key={idx} className="tag">
-                    {tag}
-                  </span>
-                ))}
+              <div className="post-content">
+                <div className="post-title">{post.title}</div>
+                <div className="post-text">{post.body}</div>
+                <div className="post-tags">
+                  {post.tags?.map((tag, idx) => (
+                    <span key={idx} className="tag">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="post-stats">
+                <span>
+                  <i className="far fa-comment"></i> {post.comments || 0}{" "}
+                  comments
+                </span>
               </div>
             </div>
-            <div className="post-stats">
-              <span>
-                <i className="far fa-comment"></i> {post.comments} comments
-              </span>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

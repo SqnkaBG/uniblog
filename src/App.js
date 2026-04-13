@@ -16,10 +16,12 @@ export const LoginContext = createContext(); //global varaible to keep track if 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); //since it's a const change it's value with state
   const [userId, setUserId] = useState("");
+  const [username, setUsername] = useState("");
   const checkLoginState = () => {
     const loginState = localStorage.getItem("isLoggedIn");
     if (loginState) {
       setIsLoggedIn(true);
+      setUsername(localStorage.getItem("username"));
       setUserId(localStorage.getItem("userID"));
     }
   };
@@ -27,7 +29,14 @@ const App = () => {
   return (
     //make it a parent to everything so every page can access it
     <LoginContext.Provider
-      value={{ isLoggedIn, setIsLoggedIn, userId, setUserId }}
+      value={{
+        isLoggedIn,
+        setIsLoggedIn,
+        userId,
+        setUserId,
+        username,
+        setUsername,
+      }}
     >
       <NavigationBar />
       <Routes>

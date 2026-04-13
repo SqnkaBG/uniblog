@@ -11,6 +11,7 @@ function NavigationBar() {
     setIsLoggedIn(false);
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("userID");
+    localStorage.removeItem("username");
     setUserId("");
     navigate("/");
   };

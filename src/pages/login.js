@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const LoginPage = () => {
   const { setIsLoggedIn } = useContext(LoginContext);
   const { setUserId } = useContext(LoginContext);
+  const { setUsername } = useContext(LoginContext);
 
   const navigate = useNavigate();
 
@@ -34,8 +35,11 @@ const LoginPage = () => {
       if (validUser) {
         setIsLoggedIn(true);
         setUserId(validUser.id);
+        console.log(validUser.username);
+        setUsername(validUser.username);
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("userID", `${validUser.id}`); //the logic here is that if you use real db you will probably gonna use some cryptography logic and/or it will be stored somewhere else for security
+        localStorage.setItem("username", `${validUser.username}`);
         setUserId(validUser.id);
         navigate("/my-profile");
       } else {

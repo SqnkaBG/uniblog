@@ -9,7 +9,7 @@ function AccountPage() {
   const [profile, setProfile] = useState({});
   const [error, setError] = useState(false);
 
-  const [username, setUsername] = useState("");
+  const { username, setUsername } = useContext(LoginContext);
   const [bio, setBio] = useState("");
   const [avatar, setAvatar] = useState("");
 
