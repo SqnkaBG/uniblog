@@ -93,3 +93,9 @@ button:active {
   border-radius: 20px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
+.error {
+  color: red;
+  margin-top: -20px;
+  margin-bottom: 10px;
+  font-size: smaller;
+}

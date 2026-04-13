@@ -14,20 +14,22 @@ const RegisterPage = () => {
   const [validPassRepeat, setvalidPassRepeat] = useState(false);
 
   const [formIsVisible, setformIsVisible] = useState(true);
+  const [sameEmail, setsameEmail] = useState(false);
 
   const handleUsername = (e) => {
     const value = e.target.value;
     setUsername(value);
-    if (value.length >= 4 && value.length <= 10) {
-      setvalidUsername(true);
-    }
+    if (value.length <= 3 || value.length >= 11) {
+      setvalidUsername(false);
+    } else setvalidUsername(true);
   };
   const handleEmail = (e) => {
+    setsameEmail(false);
     const value = e.target.value;
     setEmail(value);
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const valid = emailRegex.test(email);
+    const valid = emailRegex.test(value);
 
     setvalidEmail(valid);
   };
@@ -38,7 +40,7 @@ const RegisterPage = () => {
 
     const passRegex =
       /^(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
-    const valid = passRegex.test(password);
+    const valid = passRegex.test(value);
 
     setvalidPass(valid);
   };
@@ -52,10 +54,27 @@ const RegisterPage = () => {
     setvalidPassRepeat(valid);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); //prevent refresh
 
-    if (validUsername && validEmail && validPass && validPassRepeat) {
+    if (validEmail) {
+      const emails = await getEmails();
+      const emailExists = emails.includes(email); //check if current email is in the emails array(returns true/false)
+
+      if (emailExists) {
+        setsameEmail(true);
+
+        return;
+      }
+    }
+
+    if (
+      validUsername &&
+      validEmail &&
+      validPass &&
+      validPassRepeat &&
+      !sameEmail
+    ) {
       const jsonData = {
         email: email,
         password: password,
@@ -84,44 +103,44 @@ const RegisterPage = () => {
     }
   };
 
+  const getEmails = async () => {
+    try {
+      const response = await fetch("http://localhost:3002/users");
+      const data = await response.json();
+
+      const emailArray = data.map((user) => user.email); // creates a copy of array of with just the user emails
+
+      return emailArray;
+    } catch (error) {
+      alert("Something went wrong, please try again later.");
+    }
+  };
+
   return (
     <div>
       {formIsVisible ? (
         <form onSubmit={handleSubmit}>
-          <label>usename</label>
+          <label>username</label>
           <input onChange={handleUsername} value={username}></input>
           {!validUsername &&
             username && ( //if the username is invalid and something was typed in then it shows the invalid text
-              <p
-                style={{
-                  color: "red",
-                  marginTop: "-20px",
-                  marginBottom: "10px",
-                }}
-              >
-                Username should be more than 3 symbols and less than 11
+              <p className="error">
+                Username should be more than 3 symbols and less than 11 symbols
               </p>
             )}
           <label>email</label>
           <input onChange={handleEmail} value={email}></input>
-          {!validEmail &&
-            email && ( //if the email is invalid and something was typed in then it shows the invalid text
-              <p
-                style={{
-                  color: "red",
-                  marginTop: "-20px",
-                  marginBottom: "10px",
-                }}
-              >
-                Invalid email format
-              </p>
-            )}
+          {!validEmail && email && (
+            <p className="error">Invalid email format</p>
+          )}
+
+          {sameEmail && email && (
+            <p className="error">Please choose another email</p>
+          )}
           <label>password</label>
           <input onChange={handlePass} type="password"></input>
           {!validPass && password && (
-            <p
-              style={{ color: "red", marginTop: "-20px", marginBottom: "10px" }}
-            >
+            <p className="error">
               Password should be at least 8 characters long and contain one
               capital letter and special symbol
             </p>
@@ -129,11 +148,7 @@ const RegisterPage = () => {
           <label>Enter your password again</label>
           <input type="password" onChange={RepeatPass}></input>
           {!validPassRepeat && passwordRepeat && (
-            <p
-              style={{ color: "red", marginTop: "-20px", marginBottom: "10px" }}
-            >
-              Passwords do not match
-            </p>
+            <p className="error">Passwords do not match</p>
           )}
           <button>Register</button>
         </form>
