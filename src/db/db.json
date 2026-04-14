@@ -5,9 +5,12 @@
       "email": "ala@ala.com",
       "password": "(TeJ@qDh8<5q{8|&a",
       "username": "Test",
-      "avatar": "👤",
-      "bio": "",
-      "posts": []
+      "avatar": "🚀",
+      "bio": "aaaaa",
+      "posts": [
+        "BP2Hz5k2",
+        "bZY5M4ap"
+      ]
     },
     {
       "email": "258knr@unibit.bg",
@@ -22,190 +25,23 @@
       "email": "254knr@unibit.bg",
       "password": "P@rola123456",
       "username": "paco",
-      "avatar": "👤",
-      "bio": "",
-      "posts": [],
+      "avatar": "😈",
+      "bio": "paco",
+      "posts": [
+        "7tj5gi8J"
+      ],
       "id": "BjP-DcP"
     }
   ],
   "posts": [
     {
-      "id": "p1",
-      "userID": "Dbuyx-Na5gg",
-      "date": "2025-04-09T00:00:00.000Z",
-      "title": "I submitted my assignment 2 minutes before deadline",
-      "body": "Heart rate was 180. Hands shaking. WiFi almost died. But we made it. Professors hate this one simple trick.",
-      "tags": ["#relatable", "#procrastination", "#win"],
-      "comments": []
-    },
-    {
-      "id": "p2",
-      "userID": "Dbuyx-Na5gg",
-      "date": "2025-04-08T00:00:00.000Z",
-      "title": "I asked ChatGPT to write my essay and got caught",
-      "body": "Turns out 'as an AI language model' is not something I would write. 0/10 recommend. Now I have a meeting with the dean.",
-      "tags": ["#fail", "#chatgpt", "#lessonlearned"],
-      "comments": []
-    },
-    {
-      "id": "p3",
-      "userID": "Dbuyx-Na5gg",
-      "date": "2025-04-07T00:00:00.000Z",
-      "title": "Who decided 8am classes should exist?",
-      "body": "I want to have a conversation with that person. Outside. Right now. My 8am attendance is 20% and dropping. This is not a flex, it's a cry for help.",
-      "tags": ["#8am", "#ihatemornings", "#studentlife"],
-      "comments": []
-    },
-    {
-      "id": "p4",
-      "userID": "p3EZEJA",
-      "date": "2025-04-06T00:00:00.000Z",
-      "title": "I survived a whole week on €10",
-      "body": "Noodles, free coffee from the library, and stealing my roommate's snacks. The grind is real. Someone please buy me a meal. I will do your homework.",
-      "tags": ["#brokestudent", "#college", "#sendfood"],
-      "comments": []
-    },
-    {
-      "id": "p5",
-      "userID": "p3EZEJA",
-      "date": "2025-04-05T00:00:00.000Z",
-      "title": "I finally went to the gym after saying I would for 6 months",
-      "body": "Can't move my arms. Can't feel my legs. Wrote this with my nose. Worth it though. Maybe. Ask me again tomorrow.",
-      "tags": ["#gym", "#newyearresolution", "#pain"],
-      "comments": []
-    },
-    {
-      "id": "p6",
-      "userID": "Dbuyx-Na5gg",
-      "date": "2025-04-04T00:00:00.000Z",
-      "title": "My group project partner just texted 'can u do my part?'",
-      "body": "Bro. The presentation is in 2 hours. You had 3 weeks. I'm putting your name on the slide but not saying a word. The professor will know.",
-      "tags": ["#groupprojects", "#teamwork", "#rage"],
-      "comments": []
-    },
-    {
-      "id": "p7",
-      "userID": "Dbuyx-Na5gg",
-      "date": "2025-04-02T00:00:00.000Z",
-      "title": "PSA: Please stop putting pizza in the CD drive",
-      "body": "That is not a cup holder. That is not a pizza warmer. I don't know why this needs to be said but here we are. Three laptops this week alone.",
-      "tags": ["#itsupport", "#common sense", "#help"],
-      "comments": []
-    },
-    {
-      "id": "p8",
-      "userID": "Dbuyx-Na5gg",
-      "date": "2025-04-10T00:00:00.000Z",
-      "title": "Someone just microwaved fish in the library",
-      "body": "There are no words. We need to talk about basic human decency. The entire third floor smells like a seafood market. I'm writing this from the bathroom hiding.",
-      "tags": ["#library", "#war crimes", "#why"],
-      "comments": []
-    },
-    {
-      "id": "p9",
-      "userID": "Dbuyx-Na5gg",
-      "date": "2025-04-10T00:00:00.000Z",
-      "title": "Been circling the parking lot for 45 minutes",
-      "body": "I've seen three fights, two breakups, and a guy crying. There are no spots. I'm considering just driving into the sun. Tuition pays for what exactly?",
-      "tags": ["#parking", "#campusproblems", "#sendhelp"],
-      "comments": []
-    },
-    {
-      "id": "p10",
-      "userID": "Dbuyx-Na5gg",
-      "date": "2025-04-09T00:00:00.000Z",
-      "title": "What IS this on my plate?",
-      "body": "It's brown. It's wet. It's moving slightly. I asked the lunch lady what it was. She just smiled. I'm scared. Someone adopt me off campus.",
-      "tags": ["#dininghall", "#food?", "#call my mom"],
-      "comments": []
-    },
-    {
-      "id": "p11",
-      "userID": "Dbuyx-Na5gg",
-      "date": "2025-04-08T00:00:00.000Z",
-      "title": "My group members haven't responded in 2 weeks",
-      "body": "Presentation is tomorrow. I've done 100% of the work. Their names are on the slides but I'm about to photoshop them out. Watch me.",
-      "tags": ["#groupprojects", "#betrayal", "#snapped"],
-      "comments": []
-    },
-    {
-      "id": "p12",
-      "userID": "Dbuyx-Na5gg",
-      "date": "2025-04-07T00:00:00.000Z",
-      "title": "The campus coffee machine is broken again",
-      "body": "This is not a drill. People are panicking. Someone just offered me $20 for my cold leftover coffee. I said no. Pray for us.",
-      "tags": ["#coffee", "#emergency", "#endtimes"],
-      "comments": []
-    },
-    {
-      "id": "p13",
-      "userID": "Dbuyx-Na5gg",
-      "date": "2025-04-06T00:00:00.000Z",
-      "title": "My roommate's alarm has been ringing for 2 hours",
-      "body": "He's not here. He left for class. In the end I broke his phone in half and peace has finally been granted to me. Don't know what he's gonna do about the phone though.",
-      "tags": ["#roommate", "#noise", "#help"],
-      "comments": []
-    },
-    {
-      "id": "p14",
-      "userID": "Dbuyx-Na5gg",
-      "date": "2025-04-05T00:00:00.000Z",
-      "title": "Someone took my clothes out mid cycle",
-      "body": "They were wet. Just threw them on the floor like an animal. I'm sitting here watching my underwear on the dirty floor. Who raised you?",
-      "tags": ["#laundry", "#war", "#unspoken rules"],
-      "comments": []
-    },
-    {
-      "id": "p15",
-      "userID": "Dbuyx-Na5gg",
-      "date": "2025-04-03T00:00:00.000Z",
-      "title": "The campus printer hates me personally",
-      "body": "I've tried everything. Restarted it. Swore at it. Cried in front of it. It prints everyone else's stuff but mine. I think it's sentient and evil.",
-      "tags": ["#printer", "#technology", "#enemies"],
-      "comments": []
-    },
-    {
-      "id": "p16",
-      "userID": "Dbuyx-Na5gg",
-      "date": "2025-04-02T00:00:00.000Z",
-      "title": "Haven't slept in 48 hours AMA",
-      "body": "Ask me anything. I'm hallucinating. I think the chair just waved at me. My notes say 'potato' written 47 times. I don't know why.",
-      "tags": ["#finals", "#nosleep", "#send an ambulance"],
-      "comments": []
-    },
-    {
-      "id": "p17",
-      "userID": "Dbuyx-Na5gg",
-      "date": "2025-04-01T00:00:00.000Z",
-      "title": "Moodle just went down 1 hour before deadline",
-      "body": "This is not a drill. 300 people in the group chat are panicking. Someone is crying on Google Meet. The professors better accept email submissions or there will be riots.",
-      "tags": ["#moodle", "#deadline", "#chaos"],
-      "comments": []
-    },
-    {
-      "id": "p18",
-      "userID": "Dbuyx-Na5gg",
-      "date": "2025-03-31T00:00:00.000Z",
-      "title": "My train is delayed by 90 minutes",
-      "body": "The professor said 'if you're late don't bother coming.' It's not my fault. I've been on this platform since 5am. I'm becoming one with the bench.",
-      "tags": ["#commuter", "#publictransit", "#fml"],
-      "comments": []
-    },
-    {
-      "id": "p19",
-      "userID": "Dbuyx-Na5gg",
-      "date": "2025-03-30T00:00:00.000Z",
-      "title": "Just changed my major for the 4th time",
-      "body": "Started in Engineering. Then Business. Then Psychology. Now Art History? I'm a junior. My advisor has given up on me. My parents don't know yet.",
-      "tags": ["#major", "#identitycrisis", "#lost"],
-      "comments": []
-    },
-    {
       "userID": "p3EZEJA",
       "date": "2026-04-13T14:08:16.172Z",
       "title": "Da",
       "body": "sdfgsgsdgsdfgsf",
-      "tags": ["#afdg asfadf #dsgsdgsdg"],
+      "tags": [
+        "#afdg asfadf #dsgsdgsdg"
+      ],
       "comments": [],
       "id": "4uIss6i"
     },
@@ -214,7 +50,9 @@
       "date": "2026-04-13T18:05:49.731Z",
       "title": "Test",
       "body": "Hope it works :D",
-      "tags": ["#firstHashTag"],
+      "tags": [
+        "#firstHashTag"
+      ],
       "comments": [],
       "id": "FSJUGMo"
     },
@@ -223,9 +61,47 @@
       "date": "2026-04-13T19:03:49.022Z",
       "title": "Post by me",
       "body": "Testing 😁",
-      "tags": ["#testing", "#post"],
+      "tags": [
+        "#testing",
+        "#post"
+      ],
       "comments": [],
       "id": "wEgEH_h"
+    },
+    {
+      "postKey": "BP2Hz5k2",
+      "userID": "Dbuyx-Na5gg",
+      "date": "2026-04-14T09:10:25.666Z",
+      "title": "test",
+      "body": "gds",
+      "tags": [
+        "#stss"
+      ],
+      "comments": [],
+      "id": "D2-kYIC8qSg"
+    },
+    {
+      "postKey": "bZY5M4ap",
+      "userID": "Dbuyx-Na5gg",
+      "date": "2026-04-14T09:11:07.677Z",
+      "title": "aaaaaaa",
+      "body": "aaaaaaa",
+      "tags": [
+        "#aaaaaaaa"
+      ],
+      "comments": [],
+      "id": "HfbI714Q3k8"
+    },
+    {
+      "postKey": "7tj5gi8J",
+      "userID": "BjP-DcP",
+      "date": "2026-04-14T10:04:37.190Z",
+      "title": "paco",
+      "body": "paco",
+      "tags": [],
+      "comments": [],
+      "id": "gmFLCtW6jYs"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

@@ -5,7 +5,7 @@ import { LoginContext } from "../App";
 
 const AddPost = () => {
   const [title, setTitle] = useState("");
-  const [tag, setTag] = useState("");
+  const [tag] = useState("");
   const [content, setContent] = useState("");
   const [hashtags, sethashtags] = useState([]);
 
@@ -15,6 +15,16 @@ const AddPost = () => {
 
   const navigate = useNavigate();
   const { userId } = useContext(LoginContext);
+
+  const generatePostId = () => {
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+    let id = "";
+    for (let i = 0; i < 8; i++) {
+      id += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return id;
+  };
 
   useEffect(() => {
     if (titleRef.current) {
@@ -61,12 +71,15 @@ const AddPost = () => {
         .map((el) => (el = `#${el}`));
 
       sethashtags(inputData);
-      console.log(hashtags);
+
       e.currentTarget.innerText = inputData.join(" ") + " ";
+
       const range = document.createRange();
       const sel = window.getSelection();
+
       range.selectNodeContents(e.currentTarget);
       range.collapse(false);
+
       sel.removeAllRanges();
       sel.addRange(range);
     }
@@ -90,6 +103,7 @@ const AddPost = () => {
     }
 
     const postData = {
+      postKey: generatePostId(),
       userID: userId || "anonymous",
       date: new Date().toISOString(),
       title: title,
@@ -108,13 +122,29 @@ const AddPost = () => {
       });
 
       if (response.ok) {
-        alert("Post created successfully!");
         navigate("/home");
       } else {
-        alert("Failed to create post");
+        alert("Something went wrong");
+      }
+
+      const responsePosts = await fetch(
+        `http://localhost:3002/users/${userId}`,
+      );
+      const userPosts = await responsePosts.json();
+
+      const updatedPosts = [...(userPosts.posts || []), postData.postKey];
+
+      const response2 = await fetch(`http://localhost:3002/users/${userId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ posts: updatedPosts }),
+      });
+      if (!response2.ok) {
+        alert("Something went wrong");
       }
     } catch (error) {
-      console.error("Error:", error);
       alert("Something went wrong");
     }
   };

@@ -16,14 +16,20 @@ const LoginPage = () => {
 
   const [users, setUsers] = useState([]);
 
-  useEffect(() => {
+  const fetchUsers = async () => {
     try {
-      fetch("http://localhost:3002/users")
-        .then((res) => res.json()) //convert from json to array
-        .then((data) => setUsers(data));
+      const response = await fetch("http://localhost:3002/users");
+      const data = await response.json();
+
+      setUsers(data);
     } catch (error) {
       alert("Something went wrong, please try again later.");
+      console.log(error);
     }
+  };
+
+  useEffect(() => {
+    fetchUsers();
   }, []); //empty array at the end so it runs only once when it loads
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,11 +41,12 @@ const LoginPage = () => {
       if (validUser) {
         setIsLoggedIn(true);
         setUserId(validUser.id);
-        console.log(validUser.username);
         setUsername(validUser.username);
+
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("userID", `${validUser.id}`); //the logic here is that if you use real db you will probably gonna use some cryptography logic and/or it will be stored somewhere else for security
         localStorage.setItem("username", `${validUser.username}`);
+
         setUserId(validUser.id);
         navigate("/my-profile");
       } else {

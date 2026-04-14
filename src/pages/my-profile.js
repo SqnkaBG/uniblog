@@ -43,7 +43,7 @@ function AccountPage() {
             username: "",
             avatar: "👤",
             bio: "",
-            posts: [],
+            posts: 0,
           },
         );
       } else {
@@ -58,6 +58,7 @@ function AccountPage() {
     if (userId) {
       fetchProfile();
     }
+    console.log(profile.posts);
   }, [userId]);
   const submitData = async (data) => {
     if (!data.username.trim() || !data.bio.trim() || !data.avatar.trim()) {
