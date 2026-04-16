@@ -118,10 +118,7 @@
   transition:
     transform 0.2s,
     box-shadow 0.2s;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  width: 18%;
+  width: 30%;
   margin: 0 auto;
 }
 
@@ -132,22 +129,4 @@
 
 .submit-btn:active {
   transform: translateY(0);
-}
-
-@media (max-width: 650px) {
-  .add-post-container {
-    padding: 0 16px;
-  }
-
-  .add-post-form {
-    padding: 24px;
-  }
-
-  .form-title {
-    font-size: 24px;
-  }
-
-  .editor-title {
-    font-size: 20px;
-  }
 }

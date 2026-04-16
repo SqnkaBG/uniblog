@@ -63,9 +63,7 @@ const LoginPage = () => {
         onChange={(e) => setPassword(e.target.value)}
         type="password"
       ></input>
-      <p style={{ color: "red", marginTop: "-20px", marginBottom: "10px" }}>
-        {error ? "Wrong email or password" : ""}
-      </p>
+      <p className="error">{error ? "Wrong email or password" : ""}</p>
       <button>OK</button>
     </form>
   );

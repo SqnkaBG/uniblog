@@ -61,7 +61,6 @@ const HomePage = () => {
     );
   }
 
-  // No posts
   if (posts.length < 1) {
     return (
       <div className="home-container">
@@ -75,13 +74,12 @@ const HomePage = () => {
               className="create-post-btn"
               onClick={() => navigate("/addPost")}
             >
-              <i className="fas fa-pen-fancy"></i> Make a post
+              Make a post
             </button>
           )}
         </div>
         <div className="posts-feed">
           <div className="empty-state">
-            <i className="fas fa-newspaper"></i>
             <h3>No posts yet</h3>
             <p>Be the first to share something!</p>
           </div>
@@ -90,7 +88,6 @@ const HomePage = () => {
     );
   }
 
-  // Show posts
   return (
     <div className="home-container">
       <div className="welcome-card">
@@ -103,7 +100,8 @@ const HomePage = () => {
             className="create-post-btn"
             onClick={() => navigate("/addPost")}
           >
-            <i className="fas fa-pen-fancy"></i> Make a post
+            {" "}
+            Make a post
           </button>
         )}
       </div>
@@ -116,24 +114,19 @@ const HomePage = () => {
               <div className="post-header">
                 <div className="avatar">{`${author.avatar}` || `${"👤"}`}</div>
                 <div className="post-author">
-                  <h4>
-                    {author.username || "Nameless"}
-                    <span className="post-badge">
-                      @{author.username || "nameless"}
-                    </span>
-                  </h4>
-                  <div className="post-meta">
-                    <span>
-                      <i className="far fa-calendar-alt"></i>{" "}
-                      {new Date(post.date).toLocaleDateString("en-BG", {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric",
-                        hour: "numeric",
-                        minute: "2-digit",
-                      })}
-                    </span>
-                  </div>
+                  <span className="post-badge">
+                    @{author.username || "nameless"}
+                  </span>
+                  <span className="post-meta">
+                    {" "}
+                    {new Date(post.date).toLocaleDateString("en-BG", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                      hour: "numeric",
+                      minute: "2-digit",
+                    })}
+                  </span>
                 </div>
               </div>
               <div className="post-content">
@@ -148,10 +141,7 @@ const HomePage = () => {
                 </div>
               </div>
               <div className="post-stats">
-                <span>
-                  <i className="far fa-comment"></i> {post.comments || 0}{" "}
-                  comments
-                </span>
+                <span> {post.comments || 0} comments</span>
               </div>
             </div>
           );

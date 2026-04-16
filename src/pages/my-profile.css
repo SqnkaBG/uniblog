@@ -13,7 +13,7 @@
 
 .card-cover {
   height: 120px;
-  background-color: #667eea;
+  background-color: #536cd8;
 }
 
 .avatar-wrapper {
@@ -32,6 +32,7 @@
   font-size: 48px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+
 .profile-info {
   padding: 20px;
   text-align: center;
@@ -93,6 +94,7 @@
 .edit-btn:hover {
   background-color: #5a67d8;
 }
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -130,24 +132,40 @@
 
 .modal-input {
   width: 100%;
-  padding: 10px;
+  padding-left: 0;
   margin-bottom: 15px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+  border: none;
+  border-style: none;
   font-size: 16px;
-  box-sizing: border-box;
+  border-radius: 0;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.modal-input:hover,
+.modal-input:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: #e0e0e0;
 }
 
 .modal-textarea {
   width: 100%;
-  padding: 10px;
+  padding-left: 0;
+  padding-top: 10px;
   margin-bottom: 20px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+  border-radius: 0;
+  border: none;
   font-size: 14px;
   font-family: inherit;
-  resize: vertical;
-  box-sizing: border-box;
+  resize: none;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.modal-textarea:hover,
+.modal-textarea:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: #e0e0e0;
 }
 
 .modal-actions {
@@ -192,4 +210,9 @@
   .modal-container {
     padding: 20px;
   }
+}
+.error {
+  color: "red";
+  margin-top: "-15px";
+  margin-bottom: "10px";
 }

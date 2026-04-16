@@ -184,7 +184,7 @@ const AddPost = () => {
         <div className="form-actions">
           <button
             type="button"
-            className="cancel-btn"
+            className="submit-btn"
             onClick={() => navigate("/home")}
           >
             Cancel

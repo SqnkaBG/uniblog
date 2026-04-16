@@ -126,7 +126,6 @@ function AccountPage() {
           </div>
 
           <div className="stats-row">
-            <div className="stat-item"></div>
             <div className="stat-item">
               <p className="profile-bio">{profile?.bio || "No bio yet"}</p>
             </div>
@@ -186,17 +185,7 @@ function AccountPage() {
               placeholder="Tell something about yourself"
             />
 
-            {error && (
-              <p
-                style={{
-                  color: "red",
-                  marginTop: "-15px",
-                  marginBottom: "10px",
-                }}
-              >
-                All fields cannot be empty
-              </p>
-            )}
+            {error && <p className="error">All fields cannot be empty</p>}
 
             <div className="modal-actions">
               <button
