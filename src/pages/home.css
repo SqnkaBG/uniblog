@@ -179,8 +179,6 @@ body {
 
 .post-stats {
   display: flex;
-  gap: 20px;
-  padding: 12px 24px 18px 24px;
   border-top: 1px solid #edeff5;
   color: #6b6b8d;
   font-size: 0.85rem;
@@ -208,4 +206,61 @@ body {
 
 .empty-state p {
   color: #7b7b9a;
+}
+.post-stats {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #edeff5;
+  width: 100%;
+}
+
+.post-stats > button {
+  background: none;
+  border: none;
+  color: #6b6b8d;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 12px 24px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  border-radius: 8px;
+  margin: 4px 0;
+}
+
+.post-stats > button:hover {
+  background: #f0f2f5;
+  color: #667eea;
+}
+
+.post-stats > button i {
+  font-size: 1rem;
+}
+
+.post-stats > button::before {
+  content: "💬";
+  font-size: 1rem;
+  margin-right: 4px;
+}
+
+.post-stats .comments-section {
+  margin-top: 0;
+  border-top: none;
+  padding-top: 0;
+}
+
+.post-stats > button:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+  .post-stats > button {
+    padding: 10px 20px;
+    font-size: 0.8rem;
+    width: 100%;
+    justify-content: center;
+  }
 }

@@ -2,11 +2,13 @@ import { useEffect, useState, useContext } from "react";
 import { LoginContext } from "../App";
 import "./home.css";
 import { useNavigate } from "react-router-dom";
+import Comment from "./comment";
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [authors, setAuthors] = useState([]);
+  const [commentSelected, setCommentSelected] = useState(null);
   const navigate = useNavigate();
 
   const { isLoggedIn } = useContext(LoginContext);
@@ -48,6 +50,11 @@ const HomePage = () => {
 
   const getAuthorById = (userId) => {
     return authors.find((author) => author.id === userId);
+  };
+  const getMyProfileById = () => {
+    return authors.find(
+      (author) => author.id === localStorage.getItem("userID"),
+    );
   };
 
   if (loading) {
@@ -109,6 +116,7 @@ const HomePage = () => {
       <div className="posts-feed">
         {posts.map((post) => {
           const author = getAuthorById(post.userID);
+          const myProfile = getMyProfileById();
           return (
             <div key={post.id} className="post-card">
               <div className="post-header">
@@ -141,7 +149,19 @@ const HomePage = () => {
                 </div>
               </div>
               <div className="post-stats">
-                <span> {post.comments || 0} comments</span>
+                {commentSelected === post.id ? (
+                  <Comment
+                    post={post}
+                    author={author}
+                    allUsers={authors}
+                    myProfile={myProfile}
+                    onClose={() => setCommentSelected(null)}
+                  />
+                ) : (
+                  <button onClick={() => setCommentSelected(post.id)}>
+                    Comments
+                  </button>
+                )}
               </div>
             </div>
           );

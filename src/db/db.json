@@ -10,16 +10,23 @@
       "posts": [
         "BP2Hz5k2",
         "bZY5M4ap"
-      ]
+      ],
+      "comments": []
     },
     {
       "email": "258knr@unibit.bg",
       "password": "P@rola123456",
       "username": "sqnkabg",
-      "avatar": "😎",
-      "bio": "saf",
-      "posts": [],
-      "id": "p3EZEJA"
+      "avatar": "😉",
+      "bio": "Супер",
+      "posts": [
+        "_C8ArbZC"
+      ],
+      "id": "p3EZEJA",
+      "comments": [
+        1,
+        2
+      ]
     },
     {
       "email": "254knr@unibit.bg",
@@ -30,44 +37,11 @@
       "posts": [
         "7tj5gi8J"
       ],
-      "id": "BjP-DcP"
+      "id": "BjP-DcP",
+      "comments": []
     }
   ],
   "posts": [
-    {
-      "userID": "p3EZEJA",
-      "date": "2026-04-13T14:08:16.172Z",
-      "title": "Da",
-      "body": "sdfgsgsdgsdfgsf",
-      "tags": [
-        "#afdg asfadf #dsgsdgsdg"
-      ],
-      "comments": [],
-      "id": "4uIss6i"
-    },
-    {
-      "userID": "p3EZEJA",
-      "date": "2026-04-13T18:05:49.731Z",
-      "title": "Test",
-      "body": "Hope it works :D",
-      "tags": [
-        "#firstHashTag"
-      ],
-      "comments": [],
-      "id": "FSJUGMo"
-    },
-    {
-      "userID": "p3EZEJA",
-      "date": "2026-04-13T19:03:49.022Z",
-      "title": "Post by me",
-      "body": "Testing 😁",
-      "tags": [
-        "#testing",
-        "#post"
-      ],
-      "comments": [],
-      "id": "wEgEH_h"
-    },
     {
       "postKey": "BP2Hz5k2",
       "userID": "Dbuyx-Na5gg",
@@ -77,7 +51,9 @@
       "tags": [
         "#stss"
       ],
-      "comments": [],
+      "comments": [
+        2
+      ],
       "id": "D2-kYIC8qSg"
     },
     {
@@ -101,6 +77,37 @@
       "tags": [],
       "comments": [],
       "id": "gmFLCtW6jYs"
+    },
+    {
+      "postKey": "_C8ArbZC",
+      "userID": "p3EZEJA",
+      "date": "2026-04-15T11:25:01.859Z",
+      "title": "JHHBKUJH",
+      "body": "JKKIJIKHIUH",
+      "tags": [
+        "#CHKJFGOJ",
+        "#ZDLKJGOF"
+      ],
+      "comments": [],
+      "id": "7ZPWJ6x"
+    }
+  ],
+  "comments": [
+    {
+      "postId": "D2-kYIC8qSg",
+      "userId": "p3EZEJA",
+      "body": "asfasf1",
+      "date": "2026-04-17T04:23:04.859Z",
+      "id": 1,
+      "edited": true,
+      "editDate": "2026-04-17T04:24:44.931Z"
+    },
+    {
+      "postId": "D2-kYIC8qSg",
+      "userId": "p3EZEJA",
+      "body": "safasfas",
+      "date": "2026-04-17T04:24:36.793Z",
+      "id": 2
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
