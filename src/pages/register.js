@@ -58,8 +58,7 @@ const RegisterPage = () => {
     e.preventDefault(); //prevent refresh
 
     if (validEmail) {
-      const emails = await getEmails();
-      const emailExists = emails.includes(email); //check if current email is in the emails array(returns true/false)
+      const emailExists = await getEmail();
 
       if (emailExists) {
         setsameEmail(true);
@@ -103,14 +102,23 @@ const RegisterPage = () => {
     }
   };
 
-  const getEmails = async () => {
+  const getEmail = async () => {
     try {
-      const response = await fetch("http://localhost:3002/users");
-      const data = await response.json();
+      const response = await fetch(
+        `http://localhost:3002/users?email:eq=${email}`,
+      ); //searches for emails in users that equal current email
 
-      const emailArray = data.map((user) => user.email); // creates a copy of array of with just the user emails
+      const emails = await response.json();
 
-      return emailArray;
+      if (response.ok) {
+        if (emails.length > 0) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        alert(response.body());
+      }
     } catch (error) {
       alert("Something went wrong, please try again later.");
     }

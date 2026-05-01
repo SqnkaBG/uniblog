@@ -30,15 +30,13 @@ function AccountPage() {
     if (!userId) return;
 
     try {
-      const response = await fetch("http://localhost:3002/users");
+      const response = await fetch(`http://localhost:3002/users/${userId}`);
 
       if (response.ok) {
         const data = await response.json();
 
-        const userProfile = data.find((element) => userId === element.id);
-
         setProfile(
-          userProfile || {
+          data || {
             id: userId,
             username: "",
             avatar: "👤",
