@@ -17,10 +17,11 @@
       "email": "258knr@unibit.bg",
       "password": "P@rola123456",
       "username": "sqnkabg",
-      "avatar": "😉",
-      "bio": "Супер",
+      "avatar": "😘",
+      "bio": "asfaf",
       "posts": [
-        "_C8ArbZC"
+        "_C8ArbZC",
+        "KjSl0lzu"
       ],
       "id": "p3EZEJA",
       "comments": [
@@ -90,17 +91,30 @@
       ],
       "comments": [],
       "id": "7ZPWJ6x"
+    },
+    {
+      "postKey": "KjSl0lzu",
+      "userID": "p3EZEJA",
+      "date": "2026-05-02T15:49:20.649Z",
+      "title": "safaf",
+      "body": "dagsdg",
+      "tags": [
+        "#dfsdggsdgs",
+        "#sdlgslg"
+      ],
+      "comments": [],
+      "id": "QyKMKJ_"
     }
   ],
   "comments": [
     {
       "postId": "D2-kYIC8qSg",
       "userId": "p3EZEJA",
-      "body": "asfasf1",
+      "body": "sa",
       "date": "2026-04-17T04:23:04.859Z",
       "id": 1,
       "edited": true,
-      "editDate": "2026-04-17T04:24:44.931Z"
+      "editDate": "2026-05-02T15:48:43.061Z"
     },
     {
       "postId": "D2-kYIC8qSg",

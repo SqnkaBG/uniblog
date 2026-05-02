@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { LoginContext } from "../App";
 import { useContext } from "react";
+import Cookies from "js-cookie";
 
 function NavigationBar() {
   const { isLoggedIn, setIsLoggedIn, userId, setUserId } =
@@ -9,9 +10,9 @@ function NavigationBar() {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("userID");
-    localStorage.removeItem("username");
+    Cookies.remove("isLoggedIn", { path: "/" });
+    Cookies.remove("userID", { path: "/" });
+    Cookies.remove("username", { path: "/" });
     setUserId("");
     navigate("/");
   };

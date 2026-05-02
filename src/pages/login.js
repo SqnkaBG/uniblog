@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { LoginContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const LoginPage = () => {
   const { setIsLoggedIn } = useContext(LoginContext);
@@ -43,9 +44,9 @@ const LoginPage = () => {
         setUserId(validUser.id);
         setUsername(validUser.username);
 
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("userID", `${validUser.id}`); //the logic here is that if you use real db you will probably gonna use some cryptography logic and/or it will be stored somewhere else for security
-        localStorage.setItem("username", `${validUser.username}`);
+        Cookies.set("isLoggedIn", "true", { expires: 5, path: "/" });
+        Cookies.set("userID", validUser.id, { expires: 5, path: "/" });
+        Cookies.set("username", validUser.username, { expires: 5, path: "/" });
 
         setUserId(validUser.id);
         navigate("/my-profile");

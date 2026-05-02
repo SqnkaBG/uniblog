@@ -3,14 +3,19 @@ import { LoginContext } from "../App";
 import "./home.css";
 import { useNavigate } from "react-router-dom";
 import Comment from "./comment";
+import Cookies from "js-cookie";
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [authors, setAuthors] = useState([]);
   const [commentSelected, setCommentSelected] = useState(null);
-  const navigate = useNavigate();
 
+  const [sortBy, setSortBy] = useState("date");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortOrder, setSortOrder] = useState("desc");
+
+  const navigate = useNavigate();
   const { isLoggedIn } = useContext(LoginContext);
 
   useEffect(() => {
@@ -51,11 +56,41 @@ const HomePage = () => {
   const getAuthorById = (userId) => {
     return authors.find((author) => author.id === userId);
   };
+
   const getMyProfileById = () => {
-    return authors.find(
-      (author) => author.id === localStorage.getItem("userID"),
-    );
+    return authors.find((author) => author.id === Cookies.get("userID"));
   };
+
+  const getSortedPosts = (postsToSort) => {
+    return [...postsToSort].sort((a, b) => {
+      if (sortBy === "date") {
+        return sortOrder === "desc"
+          ? new Date(b.date) - new Date(a.date)
+          : new Date(a.date) - new Date(b.date);
+      }
+      if (sortBy === "title") {
+        return sortOrder === "desc"
+          ? a.title.localeCompare(b.title)
+          : b.title.localeCompare(a.title);
+      }
+      return 0;
+    });
+  };
+
+  const getFilteredPosts = (postsToFilter) => {
+    if (!searchQuery.trim()) return postsToFilter;
+
+    return postsToFilter.filter((post) => {
+      const query = searchQuery.toLowerCase();
+      return (
+        post.title?.toLowerCase().includes(query) ||
+        post.body?.toLowerCase().includes(query) ||
+        post.tags?.some((tag) => tag.toLowerCase().includes(query))
+      );
+    });
+  };
+
+  const processedPosts = getFilteredPosts(getSortedPosts(posts));
 
   if (loading) {
     return (
@@ -99,7 +134,7 @@ const HomePage = () => {
     <div className="home-container">
       <div className="welcome-card">
         <div className="welcome-text">
-          <h2>Latest posts</h2>
+          <h2>{posts.length > 0 ? "Latest posts" : "What's new"}</h2>
           <p>Updated whenever someone actually posts something</p>
         </div>
         {isLoggedIn && (
@@ -107,65 +142,118 @@ const HomePage = () => {
             className="create-post-btn"
             onClick={() => navigate("/addPost")}
           >
-            {" "}
             Make a post
           </button>
         )}
       </div>
 
+      <div className="search-container">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Search posts..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        {searchQuery && (
+          <button
+            className="clear-search-btn"
+            onClick={() => setSearchQuery("")}
+          >
+            ✕
+          </button>
+        )}
+      </div>
+
+      <div className="sort-controls">
+        <span>Sort by:</span>
+        <button
+          className={`sort-btn ${sortBy === "date" ? "active" : ""}`}
+          onClick={() => {
+            if (sortBy === "date") {
+              setSortOrder(sortOrder === "desc" ? "asc" : "desc");
+            } else {
+              setSortBy("date");
+              setSortOrder("desc");
+            }
+          }}
+        >
+          Date {sortBy === "date" && (sortOrder === "desc" ? "↓" : "↑")}
+        </button>
+        <button
+          className={`sort-btn ${sortBy === "title" ? "active" : ""}`}
+          onClick={() => {
+            if (sortBy === "title") {
+              setSortOrder(sortOrder === "desc" ? "asc" : "desc");
+            } else {
+              setSortBy("title");
+              setSortOrder("desc");
+            }
+          }}
+        >
+          Title {sortBy === "title" && (sortOrder === "desc" ? "↓" : "↑")}
+        </button>
+      </div>
+
       <div className="posts-feed">
-        {posts.map((post) => {
-          const author = getAuthorById(post.userID);
-          const myProfile = getMyProfileById();
-          return (
-            <div key={post.id} className="post-card">
-              <div className="post-header">
-                <div className="avatar">{`${author.avatar}` || `${"👤"}`}</div>
-                <div className="post-author">
-                  <span className="post-badge">
-                    @{author.username || "nameless"}
-                  </span>
-                  <span className="post-meta">
-                    {" "}
-                    {new Date(post.date).toLocaleDateString("en-BG", {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                      hour: "numeric",
-                      minute: "2-digit",
-                    })}
-                  </span>
-                </div>
-              </div>
-              <div className="post-content">
-                <div className="post-title">{post.title}</div>
-                <div className="post-text">{post.body}</div>
-                <div className="post-tags">
-                  {post.tags?.map((tag, idx) => (
-                    <span key={idx} className="tag">
-                      {tag}
+        {processedPosts.length === 0 ? (
+          <div className="empty-state">
+            <h3>No posts yet</h3>
+            <p>Be the first to share something!</p>
+          </div>
+        ) : (
+          processedPosts.map((post) => {
+            const author = getAuthorById(post.userID);
+            const myProfile = getMyProfileById();
+            return (
+              <div key={post.id} className="post-card">
+                <div className="post-header">
+                  <div className="avatar">{`${author?.avatar || "👤"}`}</div>
+                  <div className="post-author">
+                    <span className="post-badge">
+                      @{author?.username || "nameless"}
                     </span>
-                  ))}
+                    <span className="post-meta">
+                      {new Date(post.date).toLocaleDateString("en-BG", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                        hour: "numeric",
+                        minute: "2-digit",
+                      })}
+                    </span>
+                  </div>
+                </div>
+                <div className="post-content">
+                  <div className="post-title">{post.title}</div>
+                  <div className="post-text">{post.body}</div>
+                  <div className="post-tags">
+                    {post.tags?.map((tag, idx) => (
+                      <span key={idx} className="tag">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="post-stats">
+                  {commentSelected === post.id ? (
+                    <Comment
+                      post={post}
+                      author={author}
+                      allUsers={authors}
+                      myProfile={myProfile}
+                      onClose={() => setCommentSelected(null)}
+                    />
+                  ) : (
+                    <button onClick={() => setCommentSelected(post.id)}>
+                      Comments
+                    </button>
+                  )}
                 </div>
               </div>
-              <div className="post-stats">
-                {commentSelected === post.id ? (
-                  <Comment
-                    post={post}
-                    author={author}
-                    allUsers={authors}
-                    myProfile={myProfile}
-                    onClose={() => setCommentSelected(null)}
-                  />
-                ) : (
-                  <button onClick={() => setCommentSelected(post.id)}>
-                    Comments
-                  </button>
-                )}
-              </div>
-            </div>
-          );
-        })}
+            );
+          })
+        )}
       </div>
     </div>
   );

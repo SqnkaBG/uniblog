@@ -7,6 +7,7 @@ import MyProfile from "./pages/my-profile";
 import Footer from "./components/footer";
 import HomePage from "./pages/home";
 import AddPost from "./pages/addPost";
+import Cookies from "js-cookie";
 
 //install json server: npm install -g json-server
 //start json server - json-server --watch src/db/db.json --port 3002
@@ -18,11 +19,12 @@ const App = () => {
   const [userId, setUserId] = useState("");
   const [username, setUsername] = useState("");
   const checkLoginState = () => {
-    const loginState = localStorage.getItem("isLoggedIn");
+    const loginState = Cookies.get("isLoggedIn");
+
     if (loginState) {
       setIsLoggedIn(true);
-      setUsername(localStorage.getItem("username"));
-      setUserId(localStorage.getItem("userID"));
+      setUsername(Cookies.get("username"));
+      setUserId(Cookies.get("userID"));
     }
   };
   useState(checkLoginState, []);
