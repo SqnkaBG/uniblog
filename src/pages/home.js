@@ -65,8 +65,8 @@ const HomePage = () => {
     return [...postsToSort].sort((a, b) => {
       if (sortBy === "date") {
         return sortOrder === "desc"
-          ? new Date(b.date) - new Date(a.date)
-          : new Date(a.date) - new Date(b.date);
+          ? new Date(a.date) - new Date(b.date)
+          : new Date(b.date) - new Date(a.date);
       }
       if (sortBy === "title") {
         return sortOrder === "desc"
