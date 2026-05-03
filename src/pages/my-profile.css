@@ -216,3 +216,28 @@
   margin-top: "-15px";
   margin-bottom: "10px";
 }
+.emojis {
+  margin-top: 2%;
+  margin-bottom: 3%;
+  width: 5%;
+  font-size: x-large;
+}
+.emojis:hover {
+  cursor: pointer;
+}
+.EmojiPickerReact {
+  position: absolute !important;
+  z-index: 1000 !important;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3) !important;
+  bottom: 19%;
+  left: 40%;
+}
+.picker-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background: transparent;
+}

@@ -1,6 +1,7 @@
 import "./my-profile.css";
 import { useState, useEffect, useContext } from "react";
 import { LoginContext } from "../App";
+import EmojiPicker from "emoji-picker-react";
 
 function AccountPage() {
   const { userId } = useContext(LoginContext);
@@ -11,7 +12,9 @@ function AccountPage() {
 
   const { username, setUsername } = useContext(LoginContext);
   const [bio, setBio] = useState("");
+
   const [avatar, setAvatar] = useState("");
+  const [showPicker, setShowPicker] = useState(false);
 
   const handleOpenMenu = () => {
     setUsername(profile.username || "");
@@ -99,15 +102,6 @@ function AccountPage() {
     submitData(jsonData);
   };
 
-  const handleInput = (e) => {
-    const input = e.target.value;
-
-    const firstChar = Array.from(input)[0] || "";
-
-    setAvatar(firstChar);
-    setError(false);
-  };
-
   return (
     <div className="account-container">
       <div className="profile-card">
@@ -159,17 +153,25 @@ function AccountPage() {
               placeholder="johndoe"
             />
             <label className="modal-label">Avatar</label>
-            <input
-              onChange={(e) => {
-                handleInput(e);
-                setError(false);
-              }}
-              value={avatar}
-              type="text"
-              name="avatar"
-              className="modal-input"
-            />
-
+            <div className="emojis" onClick={() => setShowPicker(!showPicker)}>
+              {avatar || "👤"}
+            </div>
+            {showPicker && (
+              <>
+                <div
+                  className="picker-backdrop"
+                  onClick={() => setShowPicker(false)}
+                />
+                <div className="picker-wrapper">
+                  <EmojiPicker
+                    onEmojiClick={(emoji) => {
+                      setAvatar(emoji.emoji);
+                      setShowPicker(false);
+                    }}
+                  />
+                </div>
+              </>
+            )}
             <label className="modal-label">Bio</label>
             <textarea
               onChange={(e) => {

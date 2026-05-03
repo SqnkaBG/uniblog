@@ -240,7 +240,7 @@ body {
   font-size: 1rem;
 }
 
-.post-stats > button::before {
+.comments::before {
   content: "💬";
   font-size: 1rem;
   margin-right: 4px;

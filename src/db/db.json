@@ -2,31 +2,36 @@
   "users": [
     {
       "id": "Dbuyx-Na5gg",
-      "email": "ala@ala.com",
+      "email": "259knr@unibit.bg",
       "password": "(TeJ@qDh8<5q{8|&a",
-      "username": "Test",
-      "avatar": "🚀",
-      "bio": "aaaaa",
+      "username": "klameta.something",
+      "avatar": "🐎",
+      "bio": "Мразя туй нещо! (Валентин Шиндаров)",
       "posts": [
         "BP2Hz5k2",
         "bZY5M4ap"
       ],
-      "comments": []
+      "comments": [
+        "NE1CEPONUEY",
+        "pnyHpf1udMc"
+      ]
     },
     {
       "email": "258knr@unibit.bg",
       "password": "P@rola123456",
       "username": "sqnkabg",
-      "avatar": "😘",
-      "bio": "asfaf",
+      "avatar": "🤑",
+      "bio": "Аз съм Вальо и обичам да ям дюнер.",
       "posts": [
         "_C8ArbZC",
-        "KjSl0lzu"
+        "KjSl0lzu",
+        "Vt8gI85d"
       ],
       "id": "p3EZEJA",
       "comments": [
         1,
-        2
+        2,
+        "023JTwUXDu4"
       ]
     },
     {
@@ -36,7 +41,8 @@
       "avatar": "😈",
       "bio": "paco",
       "posts": [
-        "7tj5gi8J"
+        "7tj5gi8J",
+        "jTJSzj3b"
       ],
       "id": "BjP-DcP",
       "comments": []
@@ -55,7 +61,11 @@
       "comments": [
         2
       ],
-      "id": "D2-kYIC8qSg"
+      "id": "D2-kYIC8qSg",
+      "likes": [
+        "Dbuyx-Na5gg",
+        "p3EZEJA"
+      ]
     },
     {
       "postKey": "bZY5M4ap",
@@ -67,7 +77,8 @@
         "#aaaaaaaa"
       ],
       "comments": [],
-      "id": "HfbI714Q3k8"
+      "id": "HfbI714Q3k8",
+      "likes": []
     },
     {
       "postKey": "7tj5gi8J",
@@ -103,7 +114,39 @@
         "#sdlgslg"
       ],
       "comments": [],
-      "id": "QyKMKJ_"
+      "id": "QyKMKJ_",
+      "likes": [
+        "Dbuyx-Na5gg"
+      ]
+    },
+    {
+      "postKey": "jTJSzj3b",
+      "userID": "BjP-DcP",
+      "date": "2026-05-03T11:45:37.951Z",
+      "title": "Тениски на анди студио",
+      "body": "Някои случайно да си е купувал тениски на Анди Студио от Съндей Хабит? Имам интерес, но не съм сигурен дали си струват парите. Събрал съм 20 анди койни и се чудя дали да не си ги пазя за масажор за крака.",
+      "tags": [
+        "#andistudio"
+      ],
+      "comments": [
+        "023JTwUXDu4",
+        "NE1CEPONUEY"
+      ],
+      "id": "92bTEXtg0OQ"
+    },
+    {
+      "postKey": "Vt8gI85d",
+      "userID": "p3EZEJA",
+      "date": "2026-05-03T11:54:36.839Z",
+      "title": "Paco и аз",
+      "body": "Аз и Пацо сме най-големите фенове на Анди студио!!!!!!!!!!!! Напред и нагоре шампиони!!!!! 😼😼😼😼😼😼😼",
+      "tags": [
+        "#andistudio"
+      ],
+      "comments": [
+        "pnyHpf1udMc"
+      ],
+      "id": "j0vUZUVeYTY"
     }
   ],
   "comments": [
@@ -112,7 +155,7 @@
       "userId": "p3EZEJA",
       "body": "sa",
       "date": "2026-04-17T04:23:04.859Z",
-      "id": 1,
+      "id": "1",
       "edited": true,
       "editDate": "2026-05-02T15:48:43.061Z"
     },
@@ -121,7 +164,30 @@
       "userId": "p3EZEJA",
       "body": "safasfas",
       "date": "2026-04-17T04:24:36.793Z",
-      "id": 2
+      "id": "2"
+    },
+    {
+      "postId": "92bTEXtg0OQ",
+      "userId": "p3EZEJA",
+      "body": "Не слушай другите, Пацо! Тениските 100% си струват, аз имам поне 6. 😆",
+      "date": "2026-05-03T11:55:23.417Z",
+      "id": "023JTwUXDu4"
+    },
+    {
+      "postId": "92bTEXtg0OQ",
+      "userId": "Dbuyx-Na5gg",
+      "body": "Тениските са тъпи, купи си видеоигра!! Аз цъкам по цял ден и имам артрит вече! Много съм готина и си правя кефа за разлика от онуй нещо.",
+      "date": "2026-05-03T12:01:18.981Z",
+      "id": "NE1CEPONUEY",
+      "edited": true,
+      "editDate": "2026-05-03T12:05:28.062Z"
+    },
+    {
+      "postId": "j0vUZUVeYTY",
+      "userId": "Dbuyx-Na5gg",
+      "body": "Ти не ставаш за нищо!",
+      "date": "2026-05-03T12:02:35.773Z",
+      "id": "pnyHpf1udMc"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

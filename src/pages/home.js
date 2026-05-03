@@ -92,6 +92,36 @@ const HomePage = () => {
 
   const processedPosts = getFilteredPosts(getSortedPosts(posts));
 
+  const handleLike = async (postId, currentLikes) => {
+    if (!Cookies.get("userID")) {
+      alert("Please log in to like posts");
+      return;
+    }
+
+    const userId = Cookies.get("userID");
+    const isLiked = currentLikes.includes(userId);
+    const updatedLikes = isLiked
+      ? currentLikes.filter((id) => id !== userId)
+      : [...currentLikes, userId];
+
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.id === postId ? { ...post, likes: updatedLikes } : post,
+      ),
+    );
+
+    try {
+      await fetch(`http://localhost:3002/posts/${postId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ likes: updatedLikes }),
+      });
+    } catch (error) {
+      alert("Something went wrong.");
+      fetchPosts();
+    }
+  };
+
   if (loading) {
     return (
       <div className="home-container">
@@ -236,6 +266,13 @@ const HomePage = () => {
                   </div>
                 </div>
                 <div className="post-stats">
+                  <button
+                    className={`like-btn ${post.likes?.includes(Cookies.get("userID")) ? "liked" : ""}`}
+                    onClick={() => handleLike(post.id, post.likes || [])}
+                  >
+                    {post.likes?.includes(Cookies.get("userID")) ? "❤️" : "🤍"}
+                    <span>{post.likes?.length || 0}</span>
+                  </button>
                   {commentSelected === post.id ? (
                     <Comment
                       post={post}
@@ -245,7 +282,10 @@ const HomePage = () => {
                       onClose={() => setCommentSelected(null)}
                     />
                   ) : (
-                    <button onClick={() => setCommentSelected(post.id)}>
+                    <button
+                      onClick={() => setCommentSelected(post.id)}
+                      className="comments"
+                    >
                       Comments
                     </button>
                   )}
