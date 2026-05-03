@@ -1,4 +1,3 @@
-// ShowProfile.jsx
 import "./showProfile.css";
 
 const ShowProfile = ({ profile, onClose }) => {
