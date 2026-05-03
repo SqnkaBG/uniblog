@@ -15,6 +15,7 @@ const Comment = ({
   const [submitting, setSubmitting] = useState(false);
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editText, setEditText] = useState("");
+  const [showProfile, setShowProfile] = useState(null);
   const { isLoggedIn, userId } = useContext(LoginContext);
 
   useEffect(() => {
@@ -291,12 +292,18 @@ const Comment = ({
 
             return (
               <div key={comment.id} className="comment-item">
-                <div className="comment-avatar">
+                <div
+                  className="comment-avatar"
+                  onClick={() => setShowProfile(commentAuthor)}
+                >
                   {commentAuthor?.avatar || "👤"}
                 </div>
                 <div className="comment-content">
                   <div className="comment-header">
-                    <span className="comment-author">
+                    <span
+                      className="comment-author"
+                      onClick={() => setShowProfile(commentAuthor)}
+                    >
                       {commentAuthor?.username || "User"}
                     </span>
                     <span className="comment-time">
@@ -360,6 +367,42 @@ const Comment = ({
           })
         )}
       </div>
+      {showProfile && (
+        <div
+          className="profile-popup-overlay"
+          onClick={() => setShowProfile(null)}
+        >
+          <div className="profile-popup" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="profile-popup-close"
+              onClick={() => setShowProfile(null)}
+            >
+              ✕
+            </button>
+
+            <div className="profile-popup-avatar">
+              {showProfile.avatar || "👤"}
+            </div>
+
+            <h2 className="profile-popup-username">
+              @{showProfile.username || "username"}
+            </h2>
+
+            <p className="profile-popup-bio">
+              {showProfile.bio || "No bio yet"}
+            </p>
+
+            <div className="profile-popup-stats">
+              <div className="profile-popup-stat">
+                <span className="stat-number">
+                  {showProfile.posts?.length || 0}
+                </span>
+                <span className="stat-label">Posts</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

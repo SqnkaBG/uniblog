@@ -349,3 +349,116 @@ body {
   border-color: white;
   font-weight: 600;
 }
+.profile-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+.profile-popup {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  width: 350px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: popIn 0.3s ease-out;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.profile-popup-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #666;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.profile-popup-close:hover {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.profile-popup-avatar {
+  font-size: 72px;
+  margin-bottom: 16px;
+}
+
+.profile-popup-username {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.profile-popup-bio {
+  color: #666;
+  margin: 12px 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.profile-popup-stats {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.profile-popup-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  font-size: 28px;
+  font-weight: bold;
+  display: block;
+  color: #333;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.avatar,
+.post-author {
+  cursor: pointer;
+}
+
+.avatar:hover,
+.post-author:hover {
+  opacity: 0.8;
+}

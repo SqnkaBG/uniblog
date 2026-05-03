@@ -60,9 +60,15 @@ const AddPost = () => {
     setTitle(e.currentTarget.innerText);
   };
 
+  const handleTagsKeyDown = (e) => {
+    if (!/[A-Za-z0-9 ]/.test(e.key) && e.key.length === 1) {
+      e.preventDefault();
+    }
+  };
+
   const handleTagsInput = (e) => {
     if (
-      e.currentTarget.innerText[e.currentTarget.innerText.length - 1] === "#" &&
+      e.currentTarget.innerText.endsWith("\u00A0") &&
       e.currentTarget.innerText.length > 1
     ) {
       const inputData = e.currentTarget.innerText
@@ -72,7 +78,7 @@ const AddPost = () => {
 
       sethashtags(inputData);
 
-      e.currentTarget.innerText = inputData.join(" ") + " ";
+      e.currentTarget.innerText = inputData.join(" ") + "\u00A0";
 
       const range = document.createRange();
       const sel = window.getSelection();
@@ -168,6 +174,7 @@ const AddPost = () => {
           className="editor-tags"
           contentEditable="true"
           onInput={handleTagsInput}
+          onKeyDown={handleTagsKeyDown}
           suppressContentEditableWarning={true}
           data-placeholder="Enter the tag name and then press # to make it as valid hashtag"
         ></div>

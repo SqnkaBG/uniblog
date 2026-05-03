@@ -9,6 +9,7 @@ const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [authors, setAuthors] = useState([]);
+  const [showProfileId, setShowProfileId] = useState(null);
   const [commentSelected, setCommentSelected] = useState(null);
 
   const [sortBy, setSortBy] = useState("date");
@@ -238,8 +239,14 @@ const HomePage = () => {
             return (
               <div key={post.id} className="post-card">
                 <div className="post-header">
-                  <div className="avatar">{`${author?.avatar || "👤"}`}</div>
-                  <div className="post-author">
+                  <div
+                    className="avatar"
+                    onClick={() => setShowProfileId(post.userID)}
+                  >{`${author?.avatar || "👤"}`}</div>
+                  <div
+                    className="post-author"
+                    onClick={() => setShowProfileId(post.userID)}
+                  >
                     <span className="post-badge">
                       @{author?.username || "nameless"}
                     </span>
@@ -295,6 +302,42 @@ const HomePage = () => {
           })
         )}
       </div>
+      {showProfileId && (
+        <div
+          className="profile-popup-overlay"
+          onClick={() => setShowProfileId(null)}
+        >
+          <div className="profile-popup" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="profile-popup-close"
+              onClick={() => setShowProfileId(null)}
+            >
+              ✕
+            </button>
+
+            <div className="profile-popup-avatar">
+              {getAuthorById(showProfileId)?.avatar || "👤"}
+            </div>
+
+            <h2 className="profile-popup-username">
+              @{getAuthorById(showProfileId)?.username || "username"}
+            </h2>
+
+            <p className="profile-popup-bio">
+              {getAuthorById(showProfileId)?.bio || "No bio yet"}
+            </p>
+
+            <div className="profile-popup-stats">
+              <div className="profile-popup-stat">
+                <span className="stat-number">
+                  {getAuthorById(showProfileId)?.posts?.length || 0}
+                </span>
+                <span className="stat-label">Posts</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
