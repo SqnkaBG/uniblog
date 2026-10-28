@@ -32,7 +32,8 @@
       "comments": [
         1,
         2,
-        "023JTwUXDu4"
+        "023JTwUXDu4",
+        "Hl5h4lE"
       ]
     },
     {
@@ -101,7 +102,9 @@
         "#CHKJFGOJ",
         "#ZDLKJGOF"
       ],
-      "comments": [],
+      "comments": [
+        "Hl5h4lE"
+      ],
       "id": "7ZPWJ6x"
     },
     {
@@ -204,6 +207,15 @@
       "body": "Ти не ставаш за нищо!",
       "date": "2026-05-03T12:02:35.773Z",
       "id": "pnyHpf1udMc"
+    },
+    {
+      "postId": "7ZPWJ6x",
+      "userId": "p3EZEJA",
+      "body": "13w12",
+      "date": "2026-05-17T15:19:19.927Z",
+      "id": "Hl5h4lE",
+      "edited": true,
+      "editDate": "2026-05-17T15:19:37.890Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
